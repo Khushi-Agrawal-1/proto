@@ -1,0 +1,52 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  text-align: center;
+  height: 100%;
+}
+
+.layout {
+  height: 100%;
+}
+
+.sider {
+  text-align: left;
+}
+
+.greyBackground {
+  background: #03a9f4;
+}
+
+.whiteBackground {
+  background: #e1f5fe;
+}
+
+.text, h1.text {
+  color: #ffffff
+}
+
+.valueText {
+  color: #03a9f4;
+}
+
+h4.statusText, h4.statusText + .statusText {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.block {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 0px;
+}
+
+.blockFlex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.primaryButton {
+  background: #03a9f4;
+}
