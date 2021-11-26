@@ -1,34 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState } from 'react';
-import { Button, Typography } from 'antd';
+import { Button, message, Typography } from 'antd';
 import { useCountInterval, useMutationObserver } from './hooks';
+import client from './hooks/socketClient';
 import { TIME_INTERVAL } from './constants';
- import io  from "socket.io-client";
+// import { w3cwebsocket as W3CWebSocket } from "websocket";
+
 
 const { Title, Text } = Typography;
-
-let socket;
-const URL = "localhost:5000/";
+// const client = new W3CWebSocket('ws://127.0.0.1:8000');
 
 function App() {
 
-  const [changes, setChange] = useState("");
+  // function onButtonClick = (value) => {
+  //   client.send(JSON.stringify({
+  //     type: "message",
+  //     msg: value
+  //   }));
+  // }
 
-  useEffect(() => {
-    socket = io(URL);
-  }, [URL]);
+  useEffect(
+    () => {
+      client.onopen = () => {
+        console.log('WebSocket Client Connected');
+        client.send("Hello server!");
+      }; 
 
- 
-  useEffect(() => {
-    // socket.on("send_message", (data) => {
-    //   socket.emit("send_message",changes);
-    //   console.log(data); 
-    
-    // });
-    setChange({count});
-    socket.on("receive_message", changes);
-  }, []); 
-
+      // client.onmessage = (message) => {
+      //   const dataFromServer = JSON.parse(message.data);
+      //   console.log('got reply', dataFromServer);
+      // }
+    }
+  );
 
 
 
@@ -65,6 +68,8 @@ function App() {
 
   return (
     <div className="App">
+      {/* <button onClick={() => this.onButtonClick("hello")}> send mssg</button> */}
+      {/* <useMutationObserver {...this.props} socket={client} /> */}
 
           <div className="block blockFlex">
             <Button
@@ -104,7 +109,7 @@ function App() {
             </Title>
           </div>
  
-          <Title data-count={count} id="observedNode" className="text" onChange={(e) => {setChange(e.target.value)}}>
+          <Title data-count={count} id="observedNode" className="text" >
             Current count: {count}
           </Title>
           {isCounterActive && (
@@ -129,7 +134,12 @@ function App() {
                 </Text>
               </p>
             )}
+
+
     </div>
+          
+
+    
   );
 };
 
