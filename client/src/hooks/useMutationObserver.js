@@ -20,13 +20,16 @@ export const useMutationObserver = (isActive, callback) => {
         const targetNode = document.getElementById('observedNode');
         observer.observe(targetNode, observerConfig);
         client.send("Hello mutation!");
-        let myRecords = observer.takeRecords();
-        if (myRecords) {
-          callback(myRecords);
-          console.log(myRecords);
-          client.send(myRecords);
-          console.log(myRecords[0])
-        }
+        // console.log(xtype(observer))
+        // client.send(observer);
+        client.send(MutationRecord.type);
+        // let myRecords = observer.takeRecords();
+        // if (myRecords) {
+        //   callback(myRecords);
+        //   console.log(myRecords);
+        //   client.send(myRecords);
+        //   console.log(myRecords[0])
+        // }
         
         // console.log(mutations)
         // client.send(observer.observe(targetNode, observerConfig));
@@ -41,6 +44,7 @@ export const useMutationObserver = (isActive, callback) => {
         // const ob = observer.observe(targetNode, observerConfig);
         // console.log(ob);
       } else {
+        
         observer.disconnect();
       }
 
@@ -48,6 +52,6 @@ export const useMutationObserver = (isActive, callback) => {
 
      return () => observer.disconnect();
     },
-    [isActive, observer]
+    
   );
 };

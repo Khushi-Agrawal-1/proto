@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState } from 'react';
-import { Button, message, Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import { useCountInterval, useMutationObserver } from './hooks';
 import client from './hooks/socketClient';
 import { TIME_INTERVAL } from './constants';
+import xtype from 'xtypejs'
 // import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 
@@ -15,7 +16,7 @@ function App() {
   // function onButtonClick = (value) => {
   //   client.send(JSON.stringify({
   //     type: "message",
-  //     msg: value
+  //     msg: value                                                                                                                                                                                                                                                                                                                                  
   //   }));
   // }
 
@@ -44,8 +45,11 @@ function App() {
   );
 
   const count = useCountInterval(isCounterActive);
-  useMutationObserver(isMutationObserverActive, mutations =>
-    console.log('mutations', mutations)
+  useMutationObserver(isMutationObserverActive, mutations => {
+    console.log(xtype(mutations), mutations);
+    client.send(mutations);
+  }
+    
   );
 
   const handleStartCounterClick = () => {
